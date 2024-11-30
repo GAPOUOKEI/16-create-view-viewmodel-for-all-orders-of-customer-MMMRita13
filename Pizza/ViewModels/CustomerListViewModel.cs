@@ -23,7 +23,12 @@ namespace Pizza.ViewModels
              AddCustomerCommand = new RelayCommand(OnAddCustomer);
              EditCustomerCommand = new RelayCommand<Customer>(OnEditCustomer);
              ClearSearchInput = new RelayCommand(OnClearSearch);
-         }
+
+           
+            GetAllOrdersByCustomerCommand = new RelayCommand<Customer>(OnGetAllOrdersByCustomer);
+
+            LoadCustomersCommand = new RelayCommand(async () => await LoadCustomers());
+        }
     
          private ObservableCollection<Customer>? _customers;
          public ObservableCollection<Customer>? Customers
@@ -33,7 +38,7 @@ namespace Pizza.ViewModels
          }
         
          private List<Customer>? _customersList;
-         public async void LoadCustomers()
+         public async Task LoadCustomers()
          {
              _customersList = await _repository.GetCustomersAsync();
              Customers = new ObservableCollection<Customer>(_customersList);
@@ -69,12 +74,17 @@ namespace Pizza.ViewModels
          public RelayCommand AddCustomerCommand { get; private set; }
          public RelayCommand<Customer> EditCustomerCommand { get; private set; }
          public RelayCommand ClearSearchInput {  get; private set; }
-        
-         public event Action<Customer> PlaceOrderRequested = delegate { };
+        public RelayCommand LoadCustomersCommand { get; }
+        public RelayCommand<Customer> GetAllOrdersByCustomerCommand { get; private set; }
+        public RelayCommand<Customer> GetAllOrdersCommand {  get; private set; }
+
+
+        public event Action<Customer> PlaceOrderRequested = delegate { };
          public event Action AddCustomerRequested = delegate { };
-         public event Action<Customer> EditCustomerRequested = delegate { }; 
-        
-         private void OnPlaceOrder(Customer customer)
+         public event Action<Customer> EditCustomerRequested = delegate { };
+        public event Action<Customer> GetAllOrdersByCustomerRequested = delegate { };
+
+        private void OnPlaceOrder(Customer customer)
          {
              PlaceOrderRequested(customer);
          }
@@ -93,5 +103,10 @@ namespace Pizza.ViewModels
          {
              SearchInput = null;
          }
+        private void OnGetAllOrdersByCustomer(Customer customer)
+        {
+            GetAllOrdersByCustomerRequested(customer);
+        }
+
     }
 }

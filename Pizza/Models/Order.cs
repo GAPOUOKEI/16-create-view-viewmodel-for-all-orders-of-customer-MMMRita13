@@ -24,6 +24,10 @@ public partial class Order
     public string? DeliveryStreet { get; set; }
 
     public string? DeliveryCity { get; set; }
+    public string Address
+    {
+        get => DeliveryStreet + " " + DeliveryCity;
+    }
 
     public string? DeliveryState { get; set; }
 

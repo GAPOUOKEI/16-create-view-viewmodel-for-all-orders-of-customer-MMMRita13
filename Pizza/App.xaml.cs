@@ -9,6 +9,7 @@ namespace Pizza
     /// </summary>
     public partial class App : Application
     {
+
     }
 
 }

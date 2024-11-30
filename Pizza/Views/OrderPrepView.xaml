@@ -6,7 +6,44 @@
              xmlns:local="clr-namespace:Pizza.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <TextBlock Text=" оформить заказ"/>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Детали заказа" FontSize="24"  Grid.Row="0" Margin="108,0,238,358" Grid.RowSpan="2"/>
+
+        <StackPanel Grid.Row="1" Margin="108,5,239,5">
+            <TextBlock Text="Клиент:"/>
+            <TextBlock Text="{Binding SelectedCustomer.FullName}" Margin="0,0,0,5"/>
+
+            <TextBlock Text="Дата заказа:"/>
+            <DatePicker SelectedDate="{Binding Order.OrderDate}" Margin="0,0,0,5"/>
+
+            <TextBlock Text="Дата доставки:"/>
+            <DatePicker SelectedDate="{Binding Order.DeliveryDate}" Margin="0,0,0,5"/>
+
+            <TextBlock Text="Адрес доставки:"/>
+            <TextBox Text="{Binding Order.DeliveryStreet}" Margin="0,0,0,5"/>
+
+            <TextBlock Text="Город:"/>
+            <TextBox Text="{Binding Order.DeliveryCity}" Margin="0,0,0,5"/>
+
+            <TextBlock Text="Сумма заказа:"/>
+            <TextBox Text="{Binding Order.ItemsTotal}" Margin="0,0,0,5"/>
+
+            <TextBlock Text="Статус заказа:"/>
+            <ComboBox ItemsSource="{Binding OrderStatuses}" 
+                  SelectedItem="{Binding SelectedOrderStatus}" 
+                  DisplayMemberPath="Name" 
+                  Margin="0,0,0,5"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="209,5,0,5" Width="227">
+            <Button Content="Сохранить" Command="{Binding SaveOrderCommand}" Width="100" Margin="5"/>
+            <Button Content="Отмена" Command="{Binding CancelCommand}" Width="100" Margin="5"/>
+        </StackPanel>
     </Grid>
 </UserControl>

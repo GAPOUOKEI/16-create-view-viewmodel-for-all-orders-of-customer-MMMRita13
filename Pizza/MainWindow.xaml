@@ -44,7 +44,7 @@
                     Command="{Binding NavigationCommand}"
                     CommandParameter="customers"/>
             
-            <Button Content="оформить заказ"
+            <Button Content="оформленные заказы"
                     Command="{Binding NavigationCommand}"
                     CommandParameter="orderPrep"
                     Grid.Column="1"/>
